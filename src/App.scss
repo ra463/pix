@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Source+Sans+Pro:wght@300;400&display=swap");
+* {
+    font-family: "Roboto", sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+// want to remove horizontal scrollbar
+::-webkit-scrollbar {
+    overflow-y: hidden;
+}
