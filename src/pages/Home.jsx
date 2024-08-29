@@ -19,10 +19,11 @@ import { FiAlertCircle } from "react-icons/fi";
 const Home = () => {
   const dispatch = useDispatch();
   const { users, filterUsers } = useSelector((state) => state.data);
+  console.log(users.length);
 
   const [gender, setGender] = useState("");
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const [hasMoreData, setHasMoreData] = useState(true);
   const [arr, setArr] = useState([]);
   const [show, setShow] = useState(false);
@@ -50,7 +51,7 @@ const Home = () => {
 
       fetchData();
     }
-  }, [currentPage, gender, dispatch, resultperpage]);
+  }, [currentPage, gender, dispatch]);
 
   useEffect(() => {
     if (gender !== "") {
@@ -69,18 +70,12 @@ const Home = () => {
     }
   }, [gender, dispatch]);
 
-  const setFilterArr = () => {
-    if (arr.length === filterUsers.length) return;
-    setArr((prevArr) => [
-      ...prevArr,
-      ...filterUsers.slice(prevArr.length, prevArr.length + 10),
-    ]);
-  };
-
   const loadMore = () => {
-    // console.log("load more", fUsers.length);
     if (gender && !loading) {
-      setFilterArr();
+      setArr((prevArr) => [
+        ...prevArr,
+        ...filterUsers.slice(prevArr.length, prevArr.length + 10),
+      ]);
     }
     if (!loading && hasMoreData) {
       setCurrentPage((prevPage) => prevPage + 1);
@@ -127,7 +122,7 @@ const Home = () => {
 
   // Filter users based on gender
   const filteredUsers = gender !== "" ? arr : users;
-  // console.log("filteredUsers", filteredUsers.length);
+  // console.log("filteredUsers", arr.length);
 
   // Sort users
   const sortedUsers = [...filteredUsers].sort((a, b) => {
@@ -217,10 +212,8 @@ const Home = () => {
                   </Tr>
                 ))}
               {gender && (
-                <Tr
-                  ref={sortedUsers.length === 102 || 106 ? null : loadMoreRef}
-                >
-                  <Td colSpan="1" style={{ textAlign: "center" }}>
+                <Tr ref={loadMoreRef}>
+                  <Td colSpan="1" className="load">
                     {sortedUsers.length === 102 || 106
                       ? "No More Data"
                       : "Loading More Data..."}
@@ -229,7 +222,7 @@ const Home = () => {
               )}
               {!gender && (
                 <Tr ref={sortedUsers.length === 208 ? null : loadMoreRef}>
-                  <Td colSpan="1" style={{ textAlign: "center" }}>
+                  <Td className="load" colSpan="1">
                     {sortedUsers.length === 208
                       ? "No More Data"
                       : "Loading More Data..."}
