@@ -33,11 +33,7 @@ const Home = () => {
 
   const resultperpage = 10;
   const loadMoreRef = useRef(null);
-
-  const resetArr = () => {
-    setArr([]);
-  };
-
+  
   useEffect(() => {
     if (gender === "") {
       const fetchData = async () => {
