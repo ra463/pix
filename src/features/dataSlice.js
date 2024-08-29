@@ -5,7 +5,6 @@ const dataSlice = createSlice({
   initialState: {
     users: [],
     filterUsers: [],
-    total: 0,
   },
   reducers: {
     appendData: (state, action) => {
@@ -16,6 +15,8 @@ const dataSlice = createSlice({
       state.users = [...state.users, ...newUsers];
     },
     setFilteredData: (state, action) => {
+      console.log("hey123")
+      console.log(state.filterUsers);
       state.filterUsers = action.payload.filterUsers;
     },
   },

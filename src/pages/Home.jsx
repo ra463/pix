@@ -19,7 +19,7 @@ import { FiAlertCircle } from "react-icons/fi";
 const Home = () => {
   const dispatch = useDispatch();
   const { users, filterUsers } = useSelector((state) => state.data);
-  console.log(users.length);
+  console.log(filterUsers.length);
 
   const [gender, setGender] = useState("");
   const [loading, setLoading] = useState(false);
@@ -33,6 +33,10 @@ const Home = () => {
 
   const resultperpage = 10;
   const loadMoreRef = useRef(null);
+
+  const resetArr = () => {
+    setArr([]);
+  };
 
   useEffect(() => {
     if (gender === "") {
@@ -86,6 +90,11 @@ const Home = () => {
     console.log("arr updated:", arr);
   }, [arr]);
 
+  useEffect(() => {
+    // Reset `arr` and page count when gender filter changes
+    setArr([]);
+  }, [gender]);
+
   // Observe the IntersectionObserver for the load more button
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -137,8 +146,6 @@ const Home = () => {
       return aValue < bValue ? 1 : aValue > bValue ? -1 : 0;
     }
   });
-
-  // console.log(sortedUsers.length);
 
   return (
     <>
