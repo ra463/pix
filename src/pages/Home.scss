@@ -126,6 +126,14 @@
         .fields {
             justify-content: center;
             margin-bottom: 1rem;
+
+            .select{
+                .show{
+                    top: 2.5rem;
+                    right: 5rem;
+                    background: rgb(207, 205, 205);
+                }
+            }
         }
     }
 }

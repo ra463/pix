@@ -19,7 +19,6 @@ import { FiAlertCircle } from "react-icons/fi";
 const Home = () => {
   const dispatch = useDispatch();
   const { users, filterUsers } = useSelector((state) => state.data);
-  console.log(filterUsers.length);
 
   const [gender, setGender] = useState("");
   const [loading, setLoading] = useState(false);
@@ -33,7 +32,7 @@ const Home = () => {
 
   const resultperpage = 10;
   const loadMoreRef = useRef(null);
-  
+
   useEffect(() => {
     if (gender === "") {
       const fetchData = async () => {
@@ -87,7 +86,7 @@ const Home = () => {
   }, [arr]);
 
   useEffect(() => {
-    // Reset `arr` and page count when gender filter changes
+    // Reset `arr` when gender filter changes
     setArr([]);
   }, [gender]);
 
@@ -99,7 +98,7 @@ const Home = () => {
           loadMore();
         }
       },
-      { threshold: 0.5 } // Adjust the threshold as needed
+      { threshold: 0.1 } // Adjust the threshold as needed
     );
 
     if (loadMoreRef.current) {
@@ -156,7 +155,7 @@ const Home = () => {
             />
             <span className={`${show ? "show" : "hide"}`}>
               United States was the only country in the data provided from API.
-              So Its bydefault selected.
+              So Its by default selected.
             </span>
             <select>
               <option value="All">United Sataes</option>
@@ -217,7 +216,7 @@ const Home = () => {
               {gender && (
                 <Tr ref={loadMoreRef}>
                   <Td colSpan="1" className="load">
-                    {sortedUsers.length === 102 || 106
+                    {sortedUsers.length === 102 || sortedUsers.length === 106
                       ? "No More Data"
                       : "Loading More Data..."}
                   </Td>
